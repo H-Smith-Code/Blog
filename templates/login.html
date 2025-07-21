@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+</head>
+<body>
+    {% include "header.html" %}
+    <div class="container">
+
+            {% block content %}
+                <form method="POST" action="{{ url_for('login') }}" novalidate>
+
+                    {{ form.csrf_token }}
+
+                    <h3>Login</h3><br/>
+
+                    {% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                        <ul class="flashes">
+                        {% for message in messages %}
+                          <li class="message">{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                      {% endif %}
+                    {% endwith %}
+
+                    <p>
+                        <br/> {{ form.email() }}
+                        {% for err in form.email.errors %}
+                        <span style="color:red">{{ err }}</span>
+                        {% endfor %}
+                    </p><br/>
+
+                    <p>
+                        <br/> {{ form.password_hash() }}
+                        {% for err in form.password_hash.errors %}
+                        <span style="color:red">{{ err }}</span>
+                        {% endfor %}
+                    </p><br/>
+
+                    {{  form.submit(class="submit-btn") }}
+
+                </form>
+            {% endblock %}
+    </div>
+    {% include "footer.html" %}
+</body>
+</html>

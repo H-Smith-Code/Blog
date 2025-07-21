@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+    {{ ckeditor.load(pkg_type="full") }}
+</head>
+<body>
+    {% include "header.html" %}
+    <div class="container">
+        <div class="view-post">
+            <div class="post-body">
+                {{ post.body|safe }}
+            </div>
+            <div class="post-info">
+                <p>Posted by {{ post.author.name }} at {{ post.date }} </p>
+                <div class="post-btns">
+                    {% if current_user.email == "admin@email.com" %}
+                        <a href="{{ url_for('edit', post_id=post_id) }}">Edit</a>
+                        <a href="{{ url_for('delete', post_id=post_id) }}">Delete</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div><br/>
+        {% if current_user.is_authenticated %}
+        <h3>Comment</h3>
+            <form method="POST" action="{{ url_for('post', post_id=post_id) }}" novalidate>
+                {{ form.csrf_token }}
+                    <p>
+                        <br/> {{ form.comment() }}
+                        {% for err in form.comment.errors %}
+                        <span style="color:red">{{ err }}</span>
+                        {% endfor %}
+                    </p><br/>
+                    {{  form.submit(class="submit-btn") }}
+            </form>
+        {% endif %}
+        {% if comments %}
+            {% for comment in comments %}
+                <div class="comment">
+                    <div class="comment-body">
+                        <p>{{ comment.comment }}</p>
+                    </div>
+                    <div class="comment-info">
+                        <p>Posted by {{ comment.author.name }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+        </div>
+
+    {% include "footer.html" %}
+</body>
+</html>

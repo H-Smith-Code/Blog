@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+</head>
+<body>
+    {% include "header.html" %}
+    <div class="container">
+        {% for post in list %}
+            <div class="post">
+                <h1> {{ post.title }} </h1><br/>
+                <h2> {{ post.subtitle }} </h2><br/>
+                <p>Posted on {{ post.date }} by {{ post.author.name }}</p><br/>
+                <a href="{{ url_for('post', post_id=post.id) }}">Full Post</a>
+            </div>
+        {% endfor %}
+        {% if current_user.email == "admin@email.com" %}
+            <a href="{{ url_for('create') }}">Create Post</a>
+        {% endif %}
+    </div>
+    {% include "footer.html" %}
+</body>
+</html>

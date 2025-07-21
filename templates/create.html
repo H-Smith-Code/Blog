@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="../static/style.css">
+    {{ ckeditor.load(pkg_type="full") }}
+</head>
+<body>
+    {% include "header.html" %}
+        <div class="container">
+            {% block content %}
+                <form method="POST" action="{{ url_for('create') }}" novalidate>
+                    {{ form.csrf_token }}
+
+                    <h3>Title</h3>
+                    <p>
+                        <br/> {{ form.title() }}
+                        {% for err in form.title.errors %}
+                        <span style="color:red">{{ err }}</span>
+                        {% endfor %}
+                    </p><br/>
+                    <h3>URL</h3>
+                    <p>
+                        <br/> {{ form.url() }}
+                        {% for err in form.url.errors %}
+                        <span style="color:red">{{ err }}</span>
+                        {% endfor %}
+                    </p><br/>
+                    <h3>Subtitle</h3>
+                    <p>
+                        <br/> {{ form.subtitle() }}
+                        {% for err in form.subtitle.errors %}
+                        <span style="color:red">{{ err }}</span>
+                        {% endfor %}
+                    </p><br/>
+                    <h3>Body</h3>
+                    <p>
+                        <br/> {{ form.body() }}
+                        {% for err in form.body.errors %}
+                        <span style="color:red">{{ err }}</span>
+                        {% endfor %}
+                    </p><br/>
+
+                    {{  form.submit(class="submit-btn") }}
+
+                </form>
+            {% endblock %}
+        </div>
+    {% include "footer.html" %}
+</body>
+</html>
