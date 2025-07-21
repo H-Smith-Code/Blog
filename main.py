@@ -84,6 +84,7 @@ class Comments(db.Model):
 
     post_id: Mapped[int] = mapped_column(ForeignKey("blog_posts.id"))
     post: Mapped["blog_post"] = relationship(back_populates="comments")
+
 app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("blog_db_uri")
 # app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///posts.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
