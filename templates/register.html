@@ -25,6 +25,8 @@
                       {% endif %}
                     {% endwith %}
 
+                    <h3>Name</h3>
+
                     <p>
                         <br/> {{ form.name() }}
                         {% for err in form.name.errors %}
@@ -32,12 +34,16 @@
                         {% endfor %}
                     </p><br/>
 
+                    <h3>Email</h3>
+
                     <p>
                         <br/> {{ form.email() }}
                         {% for err in form.email.errors %}
                         <span style="color:red">{{ err }}</span>
                         {% endfor %}
                     </p><br/>
+
+                    <h3>Password</h3>
 
                     <p>
                         <br/> {{ form.password_hash() }}
